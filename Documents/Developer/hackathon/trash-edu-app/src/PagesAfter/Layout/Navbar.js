@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/rules-of-hooks */
 import { ReactNode } from 'react';
 import {
   Box,
@@ -15,16 +16,15 @@ import {
   useDisclosure,
   useColorModeValue,
   Stack,
+  Heading,
+  VStack,
+  Spacer,
 } from '@chakra-ui/react';
-import { HamburgerIcon, CloseIcon } from '@chakra-ui/icons';
 import { useColorMode } from '@chakra-ui/react';
-import { Heading } from '@chakra-ui/layout';
-import { VStack, Spacer } from '@chakra-ui/layout';
 import { FaSun, FaMoon, FaGithub, FaLinkedin } from 'react-icons/fa';
-import { SiMedium } from 'react-icons/si';
-import { NavLink } from 'react-router-dom';
+import { HamburgerIcon, CloseIcon, AddIcon } from '@chakra-ui/icons';
 
-export default function Navbar() {
+export default function withAction() {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const { colorMode, toggleColorMode } = useColorMode();
   const isDark = colorMode === 'dark';
@@ -62,17 +62,14 @@ export default function Navbar() {
               spacing={4}
               display={{ base: 'none', md: 'flex' }}
             >
+              {/* {Links.map(link => (
+                <NavLink key={link}>{link}</NavLink>
+              ))} */}
               <Link px={2} py={1} rounded={'md'} href="/bantuan">
                 Bantuan
               </Link>
               <Link px={2} py={1} rounded={'md'} href="/pindai-sampah">
                 Pindai sampah
-              </Link>
-              <Link px={2} py={1} rounded={'md'} href="/login">
-                Masuk
-              </Link>
-              <Link px={2} py={1} rounded={'md'} href="/signup">
-                Daftar
               </Link>
             </HStack>
           </HStack>
@@ -89,6 +86,28 @@ export default function Navbar() {
                   ></IconButton>
                 </Flex>
               </VStack>
+              <MenuButton
+                as={Button}
+                rounded={'full'}
+                variant={'link'}
+                cursor={'pointer'}
+                minW={0}
+              >
+                <Avatar
+                  size={'sm'}
+                  src={
+                    'https://images.unsplash.com/photo-1493666438817-866a91353ca9?ixlib=rb-0.3.5&q=80&fm=jpg&crop=faces&fit=crop&h=200&w=200&s=b616b2c5b373a80ffc9636ba24f7a4a9'
+                  }
+                />
+              </MenuButton>
+              <MenuList>
+                <MenuItem>Edit Profile</MenuItem>
+                {/* <MenuItem>Link 2</MenuItem> */}
+                <MenuDivider />
+                <MenuItem>
+                  <a href="/">Keluar</a>
+                </MenuItem>
+              </MenuList>
             </Menu>
           </Flex>
         </Flex>
@@ -102,16 +121,15 @@ export default function Navbar() {
               <Link px={2} py={1} rounded={'md'} href="/pindai-sampah">
                 Pindai sampah
               </Link>
-              <Link px={2} py={1} rounded={'md'} href="/bantuan">
-                Masuk
-              </Link>
-              <Link px={2} py={1} rounded={'md'} href="/bantuan">
-                Daftar
-              </Link>
+              {/* {Links.map(link => (
+                <NavLink key={link}>{link}</NavLink>
+              ))} */}
             </Stack>
           </Box>
         ) : null}
       </Box>
+
+      {/* <Box p={4}>Main Content Here</Box> */}
     </>
   );
 }

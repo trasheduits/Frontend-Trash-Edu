@@ -57,11 +57,8 @@ const Home = () => {
                     bg: useColorModeValue('gray.200', 'gray.700'),
                   }}
                 >
-                  Mulai Mencoba
+                  <a href="/pindai-sampah">Mulai Mencoba</a>
                 </Button>
-                {/* <Button rounded={"full"} size={"lg"} fontWeight={"normal"} px={6} leftIcon={<PlayIcon h={4} w={4} color={"gray.300"} />}>
-                How It Works
-              </Button> */}
               </Stack>
             </Stack>
             <Flex
