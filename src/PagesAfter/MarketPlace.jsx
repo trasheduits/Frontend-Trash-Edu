@@ -60,7 +60,7 @@ const CardSearchPromo = () => {
   };
   return (
     <>
-      <Container py={6}>
+      <Container py={1}>
         <Box
           maxW={'330px'}
           w={'full'}
@@ -104,7 +104,7 @@ const CardSearchPromo = () => {
 const CardCOD = () => {
   return (
     <>
-      <Container py={6}>
+      <Container py={1}>
         <Box
           maxW={'330px'}
           w={'full'}
@@ -123,6 +123,53 @@ const CardCOD = () => {
         </Box>
       </Container>
     </>
+  );
+};
+
+const Category = () => {
+  return (
+    <Container maxW="100%">
+      <Box
+        bg={useColorModeValue('white', 'gray.800')}
+        boxShadow={'xl'}
+        w={'full'}
+        rounded={'md'}
+      >
+        <Box px={100} py={100}>
+          <Text fontSize={'xl'} fontWeight={800}>
+            KATEGORI
+          </Text>
+          <Stack
+            direction={'row'}
+            textAlign={'center'}
+            align={'center'}
+            justify={'center'}
+          >
+            <Flex>
+              <Box p={10}>
+                <Image src={'Assets/Kategori/Plastik.svg'} alt="plastik" />
+              </Box>
+
+              <Box p={10}>
+                <Image src={'Assets/Kategori/Kayu.svg'} alt="kayu" />
+              </Box>
+              <Box p={10}>
+                <Image src={'Assets/Kategori/B3.svg'} alt="b3" />
+              </Box>
+              <Box p={10}>
+                <Image src={'Assets/Kategori/Kain.svg'} alt="kain" />
+              </Box>
+              <Box p={10}>
+                <Image src={'Assets/Kategori/Organik.svg'} alt="organik" />
+              </Box>
+              <Box p={10}>
+                <Image src={'Assets/Kategori/Kertas.svg'} alt="kertas" />
+              </Box>
+            </Flex>
+          </Stack>
+        </Box>
+      </Box>
+    </Container>
   );
 };
 
@@ -158,11 +205,14 @@ const MarketPlace = () => {
           </Flex>
           <Spacer p={4} />
           <CorouselSlide />
-          <Spacer p={4} />
-          <HStack spacing={4}>
-            <CardSearchPromo />
-            <CardCOD />
-          </HStack>
+          <Spacer py={4} />
+          <Flex>
+            <Category />
+            <Box py={4}>
+              <CardSearchPromo />
+              <CardCOD />
+            </Box>
+          </Flex>
         </Box>
       </main>
       <Footer />
