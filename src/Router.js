@@ -5,10 +5,19 @@ import Bantuan from './Pages/Bantuan';
 import PindaiSampah from './Pages/PindaiSampah';
 import Login from './Pages/Login';
 import Register from './Pages/Register';
+import {
+  B3,
+  Kain,
+  Kayu,
+  Kertas,
+  Organik,
+  Plastik,
+} from './PagesAfter/Category/index';
 
 // After Login
 import MarketPlace from './PagesAfter/MarketPlace';
 
+const categoryLink = `/category`;
 const Router = () => {
   return (
     <Switch>
@@ -29,6 +38,26 @@ const Router = () => {
       </Route>
       <Route exact path="/marketplace">
         <MarketPlace />
+      </Route>
+
+      {/* Category */}
+      <Route exact path={`${categoryLink}/plastik`}>
+        <Plastik />
+      </Route>
+      <Route exact path={`${categoryLink}/kayu`}>
+        <Kayu />
+      </Route>
+      <Route exact path={`${categoryLink}/b3`}>
+        <B3 />
+      </Route>
+      <Route exact path={`${categoryLink}/kain`}>
+        <Kain />
+      </Route>
+      <Route exact path={`${categoryLink}/organik`}>
+        <Organik />
+      </Route>
+      <Route exact path={`${categoryLink}/kertas`}>
+        <Kertas />
       </Route>
     </Switch>
   );

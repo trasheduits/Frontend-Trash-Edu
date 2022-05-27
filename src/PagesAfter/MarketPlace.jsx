@@ -12,6 +12,7 @@ import {
   Stack,
   Text,
   HStack,
+  Link,
 } from '@chakra-ui/react';
 import { CheckIcon } from '@chakra-ui/icons';
 import { Input, InputGroup, InputRightElement } from '@chakra-ui/input';
@@ -20,6 +21,7 @@ import Carousel from 'react-elastic-carousel';
 import Item from './Helper/Item';
 import './styles.css';
 import { AiOutlineArrowRight } from 'react-icons/ai';
+import { useRouter } from './Helper/Utils/useRouter';
 
 const breakPoints = [
   { width: 1, itemsToShow: 1 },
@@ -126,7 +128,9 @@ const CardCOD = () => {
   );
 };
 
-const Category = () => {
+export const Category = () => {
+  const router = useRouter();
+  const currentLink = '/category';
   return (
     <Container maxW="100%">
       <Box
@@ -146,24 +150,53 @@ const Category = () => {
             justify={'center'}
           >
             <Flex>
-              <Box p={10}>
-                <Image src={'Assets/Kategori/Plastik.svg'} alt="plastik" />
+              <Box
+                p={10}
+                as="button"
+                onClick={() => router.push(`${currentLink}/plastik`)}
+              >
+                <Image src={'/Assets/Kategori/Plastik.svg'} alt="plastik" />
+                <Text>Plastik</Text>
               </Box>
-
-              <Box p={10}>
-                <Image src={'Assets/Kategori/Kayu.svg'} alt="kayu" />
+              <Box
+                p={10}
+                as="button"
+                onClick={() => router.push(`${currentLink}/kayu`)}
+              >
+                <Image src={'/Assets/Kategori/Kayu.svg'} alt="kayu" />
+                <Text>Kayu</Text>
               </Box>
-              <Box p={10}>
-                <Image src={'Assets/Kategori/B3.svg'} alt="b3" />
+              <Box
+                p={10}
+                as="button"
+                onClick={() => router.push(`${currentLink}/b3`)}
+              >
+                <Image src={'/Assets/Kategori/B3.svg'} alt="b3" />
+                <Text>B3</Text>
               </Box>
-              <Box p={10}>
-                <Image src={'Assets/Kategori/Kain.svg'} alt="kain" />
+              <Box
+                p={10}
+                as="button"
+                onClick={() => router.push(`${currentLink}/kain`)}
+              >
+                <Image src={'/Assets/Kategori/Kain.svg'} alt="kain" />
+                <Text>Kain</Text>
               </Box>
-              <Box p={10}>
-                <Image src={'Assets/Kategori/Organik.svg'} alt="organik" />
+              <Box
+                p={10}
+                as="button"
+                onClick={() => router.push(`${currentLink}/organik`)}
+              >
+                <Image src={'/Assets/Kategori/Organik.svg'} alt="organik" />
+                <Text>Organik</Text>
               </Box>
-              <Box p={10}>
-                <Image src={'Assets/Kategori/Kertas.svg'} alt="kertas" />
+              <Box
+                p={10}
+                as="button"
+                onClick={() => router.push(`${currentLink}/kertas`)}
+              >
+                <Image src={'/Assets/Kategori/Kertas.svg'} alt="kertas" />
+                <Text>Kertas</Text>
               </Box>
             </Flex>
           </Stack>
@@ -180,6 +213,7 @@ const MarketPlace = () => {
   const handleChange = event => {
     setValue(event.target.value);
   };
+  const router = useRouter();
   return (
     <div>
       <Navbar />
