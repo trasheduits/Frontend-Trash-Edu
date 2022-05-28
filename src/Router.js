@@ -59,6 +59,7 @@ const Router = () => {
       <Route exact path={`${categoryLink}/kertas`}>
         <Kertas />
       </Route>
+      <Route path="*" element={<h1>Error 404 Page not found !!</h1>} />
     </Switch>
   );
 };
