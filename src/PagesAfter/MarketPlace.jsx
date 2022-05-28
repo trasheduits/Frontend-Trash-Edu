@@ -219,24 +219,7 @@ const MarketPlace = () => {
       <Navbar />
       <main>
         <Box p={4}>
-          <Flex alignItems={'center'} justifyContent={'space-between'}>
-            <VStack p={10} />
-            <InputGroup w="35%">
-              <Input
-                ml={8}
-                p={4}
-                pr="4.5rem"
-                placeholder="Apa yang kamu cari ?"
-                value={value}
-                onChange={handleChange}
-              />
-              <InputRightElement width="4.5rem">
-                <Button h="1.75rem" size="sm" onClick={handleSearch}>
-                  Cari
-                </Button>
-              </InputRightElement>
-            </InputGroup>
-          </Flex>
+          <Flex alignItems={'center'} justifyContent={'space-between'}></Flex>
           <Spacer p={4} />
           <CorouselSlide />
           <Spacer py={4} />

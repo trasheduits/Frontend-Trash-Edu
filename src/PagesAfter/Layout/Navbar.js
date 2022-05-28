@@ -1,5 +1,6 @@
 /* eslint-disable react-hooks/rules-of-hooks */
-import { ReactNode } from 'react';
+import React, { ReactNode, useState } from 'react';
+import { Input, InputGroup, InputRightElement } from '@chakra-ui/input';
 import {
   Box,
   Flex,
@@ -21,13 +22,18 @@ import {
   Spacer,
 } from '@chakra-ui/react';
 import { useColorMode } from '@chakra-ui/react';
-import { FaSun, FaMoon, FaGithub, FaLinkedin } from 'react-icons/fa';
+import { FaSun, FaMoon } from 'react-icons/fa';
 import { HamburgerIcon, CloseIcon, AddIcon } from '@chakra-ui/icons';
 
 export default function withAction() {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const { colorMode, toggleColorMode } = useColorMode();
   const isDark = colorMode === 'dark';
+  const [value, setValue] = React.useState('');
+  const handleSearch = () => {};
+  const handleChange = event => {
+    setValue(event.target.value);
+  };
 
   return (
     <>
@@ -100,6 +106,22 @@ export default function withAction() {
                   }
                 />
               </MenuButton>
+              <VStack p={50} />
+              <InputGroup w="35%">
+                <Input
+                  ml={8}
+                  p={4}
+                  pr="4.5rem"
+                  placeholder="Apa yang kamu cari ?"
+                  value={value}
+                  onChange={handleChange}
+                />
+                <InputRightElement width="4.5rem">
+                  <Button h="1.75rem" size="sm" onClick={handleSearch}>
+                    Cari
+                  </Button>
+                </InputRightElement>
+              </InputGroup>
               <MenuList>
                 <MenuItem>Edit Profile</MenuItem>
                 {/* <MenuItem>Link 2</MenuItem> */}
