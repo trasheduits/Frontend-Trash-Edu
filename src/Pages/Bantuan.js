@@ -13,7 +13,26 @@ import {
   Heading,
   Text,
   Flex,
+  Wrap,
+  WrapItem,
+  VStack,
+  HStack,
+  IconButton,
+  FormControl,
+  FormLabel,
+  InputGroup,
+  InputLeftElement,
+  Input,
+  Textarea,
 } from '@chakra-ui/react';
+import { BsGithub, BsDiscord, BsPerson } from 'react-icons/bs';
+import {
+  MdPhone,
+  MdEmail,
+  MdLocationOn,
+  MdFacebook,
+  MdOutlineEmail,
+} from 'react-icons/md';
 
 const data = {
   title: 'FAQ (How it works)',
@@ -56,6 +75,58 @@ const config = {
   arrowIcon: 'V',
   tabFocus: true,
 };
+
+const Contact = () => {
+  return (
+    <Flex>
+      <Wrap spacing={{ base: 10, sm: 3, md: 5, lg: 10 }}>
+        <WrapItem>
+          <Box bg="white" borderRadius="lg">
+            <Box m={8} color="#0B0E3F">
+              <VStack spacing={5}>
+                <FormControl id="name">
+                  <FormLabel>Your Name</FormLabel>
+                  <InputGroup borderColor="#E0E1E7">
+                    <InputLeftElement
+                      pointerEvents="none"
+                      children={<BsPerson color="gray.800" />}
+                    />
+                    <Input type="text" size="md" />
+                  </InputGroup>
+                </FormControl>
+                <FormControl id="name">
+                  <FormLabel>Mail</FormLabel>
+                  <InputGroup borderColor="#E0E1E7">
+                    <InputLeftElement
+                      pointerEvents="none"
+                      children={<MdOutlineEmail color="gray.800" />}
+                    />
+                    <Input type="text" size="md" />
+                  </InputGroup>
+                </FormControl>
+                <FormControl id="name">
+                  <FormLabel>Message</FormLabel>
+                  <Textarea
+                    borderColor="gray.300"
+                    _hover={{
+                      borderRadius: 'gray.300',
+                    }}
+                    placeholder="message"
+                  />
+                </FormControl>
+                <FormControl id="name" float="right">
+                  <Button variant="solid" bg="grey" color="white" _hover={{}}>
+                    Send Message
+                  </Button>
+                </FormControl>
+              </VStack>
+            </Box>
+          </Box>
+        </WrapItem>
+      </Wrap>
+    </Flex>
+  );
+};
 const Bantuan = () => {
   return (
     <div>
@@ -75,7 +146,7 @@ const Bantuan = () => {
                 fontSize={{ base: '3xl', sm: '4xl', lg: '6xl' }}
               >
                 <Text as={'span'} position={'relative'} color="#005A35">
-                  FAQ
+                  Frequently Asked Questions
                 </Text>
                 <br />
               </Heading>
@@ -84,20 +155,11 @@ const Bantuan = () => {
                 as={'span'}
                 color={'#005A35'}
               >
-                Frequently Asked Questions
-              </Text>
-              <Text color={'gray.500'}>
                 Still Have any Questions? Don't Hasitates to reach us
               </Text>
-              <Button
-                rounded={'full'}
-                size={'lg'}
-                fontWeight={'normal'}
-                px={4}
-                h={8}
-              >
-                Contact Us
-              </Button>
+              <Flex>
+                <Contact />
+              </Flex>
             </Stack>
           </Stack>
           <Flex
@@ -105,7 +167,6 @@ const Bantuan = () => {
             justify={'center'}
             align={'center'}
             position={'relative'}
-            w={'full'}
           >
             <Faq data={data} styles={styles} config={config} />
           </Flex>

@@ -1,4 +1,5 @@
-import React from 'react';
+/* eslint-disable react-hooks/rules-of-hooks */
+import React, { useState } from 'react';
 import Navbar from '../Layout/Navbar';
 import Footer from '../Layout/Footer';
 import {
@@ -17,109 +18,187 @@ import {
   FormLabel,
   Icon,
   InputGroup,
+  Container,
+  Flex,
+  Image,
+  Circle,
+  Input,
+  Label,
+  Alert,
+  AlertIcon,
+  AlertTitle,
+  AlertDescription,
 } from '@chakra-ui/react';
 import { Upload, message } from 'antd';
 import { UploadOutlined } from '@ant-design/icons';
 import { FiFile } from 'react-icons/fi';
+import { BsStar, BsStarFill, BsStarHalf } from 'react-icons/bs';
+import { FiShoppingCart } from 'react-icons/fi';
+import { useRouter } from '../PagesAfter/Helper/Utils/useRouter';
+import { InboxOutlined } from '@ant-design/icons';
+import axios from 'axios';
 
-class PindaiSampah extends React.Component {
-  state = {
-    fileList: [],
-    uploading: false,
+const { Dragger } = Upload;
+const props = {
+  name: 'file',
+  multiple: true,
+  action: 'https://www.mocky.io/v2/5cc8019d300000980a055e76',
+
+  onChange(info) {
+    const { status } = info.file;
+
+    if (status !== 'uploading') {
+      console.log(info.file, info.fileList);
+    }
+
+    if (status === 'done') {
+      message.success(`${info.file.name} file uploaded successfully.`);
+    } else if (status === 'error') {
+      message.error(`${info.file.name} file upload failed.`);
+    }
+  },
+
+  onDrop(e) {
+    console.log('Dropped files', e.dataTransfer.files);
+  },
+};
+
+const PindaiSampah = () => {
+  const [image, setImage] = useState('https://fakeimg.pl/350x200/');
+  const [saveImage, setSaveImage] = useState(null);
+  const [selectedFile, setSelectedFile] = useState(null);
+
+  const [imgStatus, setImgStatus] = useState('');
+  const [CaraPengelolaan, setCaraPengelolaan] = useState('');
+  const [CatatanTambahan, setCatatanTambahan] = useState('');
+  const [LamaWaktu, setLamaWaktu] = useState('');
+  const [tipe, setTipe] = useState('');
+
+  const router = useRouter();
+  function handleUploadChange(e) {
+    let uploaded = e.target.files[0];
+    setImage(URL.createObjectURL(uploaded));
+    setSaveImage(uploaded);
+  }
+
+  function handleSave() {
+    if (saveImage) {
+      // save image to backend
+      let formData = new FormData();
+      formData.append('photo', saveImage);
+
+      fetch('https://trashedu.herokuapp.com/predict_sampah', {
+        method: 'POST',
+        body: formData,
+      })
+        .then(res => res.json())
+        .then(data => {
+          window.location.href = data.image;
+        });
+      router.push('/pindai-sampah-result');
+    } else {
+      alert('Upload gambar dulu');
+    }
+  }
+
+  const fileSelectedHandle = event => {
+    if (event.target.files && event.target.files[0]) {
+      console.log(event.target.files[0]);
+      setSelectedFile(event.target.files[0]);
+    }
   };
 
-  handleUpload = () => {
-    const { fileList } = this.state;
-    const formData = new FormData();
-    fileList.forEach(file => {
-      formData.append('files[]', file);
-    });
-    this.setState({
-      uploading: true,
-    });
-    // You can use any AJAX library you like
-    fetch('https://www.mocky.io/v2/5cc8019d300000980a055e76', {
-      method: 'POST',
-      body: formData,
-    })
-      .then(res => res.json())
-      .then(() => {
-        this.setState({
-          fileList: [],
-        });
-        console.log('upload successfully.');
+  const fileUploadHandle = () => {
+    // console.log(event.target.files[0]);
+    const file = new FormData();
+    file.append('file', selectedFile, selectedFile.name);
+
+    axios
+      .post('https://trashedu.herokuapp.com/predict_sampah', file, {
+        onUploadProgress: progressEvent => {
+          console.log(
+            'Upload Progress : ' +
+              Math.round(progressEvent.loaded / progressEvent.total) * 100 +
+              '%'
+          );
+        },
       })
-      .catch(() => {
-        console.log('upload failed.');
+      .then(response => {
+        if (response.status === 200) {
+          console.log('response :', response);
+          console.log('status: ', response.status);
+          console.log(response.data.success);
+          // alert('response :', response);
+          setImgStatus(response.data.success);
+          setCaraPengelolaan(response.data.data['Cara Pengelolahan sampah']);
+          setTipe(response.data.data.tipe);
+          setLamaWaktu(response.data.data['lama waktu terurai']);
+          setCatatanTambahan(response.data.data['Catatan Tambahan']);
+        }
       })
-      .finally(() => {
-        this.setState({
-          uploading: false,
-        });
+      .then(result => {
+        console.log('result : ', result.success);
+      })
+      .catch(error => {
+        console.log('error : ', error);
       });
   };
+  return (
+    <>
+      <Navbar />
+      <main>
+        <Container maxW={'7xl'}>
+          {/* <Center py={60}> */}
 
-  render() {
-    const { uploading, fileList } = this.state;
-    const props = {
-      onRemove: file => {
-        this.setState(state => {
-          const index = state.fileList.indexOf(file);
-          const newFileList = state.fileList.slice();
-          newFileList.splice(index, 1);
-          return {
-            fileList: newFileList,
-          };
-        });
-      },
-      beforeUpload: file => {
-        this.setState(state => ({
-          fileList: [...state.fileList, file],
-        }));
-        return false;
-      },
-      fileList,
-    };
-    return (
-      <div>
-        <Navbar />
-        <main>
-          <Center py={6}>
-            <Box
-              maxW={'320px'}
-              w={'full'}
-              boxShadow={'2xl'}
-              rounded={'lg'}
-              p={6}
-              textAlign={'center'}
-            >
-              <Upload {...props}>
-                <Button icon={<UploadOutlined />}>Select File</Button>
-              </Upload>
-              <Stack mt={8} direction={'row'} spacing={4}>
-                <Button
-                  flex={1}
-                  fontSize={'sm'}
-                  rounded={'full'}
-                  _focus={{
-                    bg: 'gray.200',
-                  }}
-                  type="primary"
-                  onClick={this.handleUpload}
-                  disabled={fileList.length === 0}
-                  loading={uploading}
-                  style={{ marginTop: 16 }}
-                >
-                  {uploading ? 'Uploading' : 'Start Upload'}
-                </Button>
-              </Stack>
-            </Box>
+          {/* </Center> */}
+          <Center boxShadow={'xl'} py={120} style={{ height: '80vh' }}>
+            <input
+              type="file"
+              multiple
+              accept="image/*"
+              onChange={fileSelectedHandle}
+            />
+            <Button onClick={fileUploadHandle}>Mulai Pindai</Button>
           </Center>
-        </main>
-        <Footer />
-      </div>
-    );
-  }
-}
+          <Stack py={20} pacing={3}>
+            <Alert
+              status="success"
+              variant="subtle"
+              flexDirection="column"
+              alignItems="center"
+              justifyContent="center"
+              textAlign="center"
+              height="200px"
+            >
+              {/* <AlertTitle mt={4} mb={1} fontSize="lg">
+                <Flex>
+                  <Text px={2}>Akurasi : </Text>{' '}
+                  {<Text px={2}>{imgStatus}</Text>}
+                </Flex>
+              </AlertTitle> */}
+              <AlertDescription>
+                <Flex>{<Text px={1}>{imgStatus}</Text>}</Flex>
+                <Flex>
+                  <Text px={1}>Pengelolaan : </Text>
+                  {<Text px={1}>{CaraPengelolaan}</Text>}
+                </Flex>
+                <Flex>
+                  <Text px={1}>Note : </Text>
+                  {<Text px={1}>{CatatanTambahan}</Text>}
+                </Flex>
+                <Flex>
+                  <Text px={1}>Lama Terurai : </Text>
+                  {<Text px={1}>{LamaWaktu}</Text>}
+                </Flex>
+              </AlertDescription>
+            </Alert>
+            {/*  */}
+          </Stack>
+        </Container>
+      </main>
+      <Footer />
+    </>
+  );
+};
 
 export default PindaiSampah;

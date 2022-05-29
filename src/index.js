@@ -2,6 +2,9 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
 import { ChakraProvider } from '@chakra-ui/react';
+import axios from 'axios';
+
+axios.defaults.baseURL = process.env.REACT_APP_APP_URL;
 
 ReactDOM.render(
   <React.StrictMode>

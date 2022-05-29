@@ -3,6 +3,7 @@ import { Switch, Route } from 'react-router-dom';
 import Home from './Pages/Home';
 import Bantuan from './Pages/Bantuan';
 import PindaiSampah from './Pages/PindaiSampah';
+import PindaiSampahResult from './Pages/PindaiSampahResult';
 import Login from './Pages/Login';
 import Register from './Pages/Register';
 import {
@@ -13,9 +14,11 @@ import {
   Organik,
   Plastik,
 } from './PagesAfter/Category/index';
+import ProductDetail from './PagesAfter/ProductDetail';
 
 // After Login
 import MarketPlace from './PagesAfter/MarketPlace';
+import RekomendasiHarga from './PagesAfter/RekomendasiHarda';
 
 const categoryLink = `/category`;
 const Router = () => {
@@ -30,6 +33,9 @@ const Router = () => {
       <Route path="/pindai-sampah">
         <PindaiSampah />
       </Route>
+      <Route path="/pindai-sampah-result">
+        <PindaiSampahResult />
+      </Route>
       <Route exact path="/login">
         <Login />
       </Route>
@@ -39,7 +45,12 @@ const Router = () => {
       <Route exact path="/marketplace">
         <MarketPlace />
       </Route>
-
+      <Route exact path="/product-detail">
+        <ProductDetail />
+      </Route>
+      <Route exact path="/rekomendasi-harga">
+        <RekomendasiHarga />
+      </Route>
       {/* Category */}
       <Route exact path={`${categoryLink}/plastik`}>
         <Plastik />

@@ -27,10 +27,10 @@ export const Category = () => {
       <Box
         bg={useColorModeValue('white', 'gray.800')}
         boxShadow={'xl'}
-        w={'full'}
+        // w={'full'}
         rounded={'md'}
       >
-        <Box px={100} py={100}>
+        <Box>
           <Text fontSize={'xl'} fontWeight={800}>
             KATEGORI
           </Text>

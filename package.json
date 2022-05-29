@@ -1,5 +1,6 @@
 {
   "name": "trash-edu-app",
+  "homepage": "https://trashedu.ewatery.tech",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -27,6 +28,7 @@
     "react-icons": "^4.3.1",
     "react-router-dom": "5.2.0",
     "react-scripts": "5.0.1",
+    "react-slick": "^0.29.0",
     "styled-components": "^5.3.5",
     "web-vitals": "^0.2.2"
   },
@@ -36,7 +38,6 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
-  "proxy": "http://localhost:8080/",
   "eslintConfig": {
     "extends": "react-app"
   },
