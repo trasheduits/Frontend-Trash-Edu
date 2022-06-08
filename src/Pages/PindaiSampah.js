@@ -143,13 +143,53 @@ const PindaiSampah = () => {
         console.log('error : ', error);
       });
   };
+  const HEIGHT = 300;
+  const WIDTH = 300;
+
+  const [playing, setPlaying] = useState(false);
+
+  const startVideo = () => {
+    setPlaying(true);
+    navigator.getUserMedia(
+      { video: true },
+      stream => {
+        let video = document.getElementsByClassName('app__videoFeed')[0];
+        if (video) {
+          video.srcObject = stream;
+        }
+      },
+      err => console.log(err)
+    );
+  };
+
+  const stopVideo = () => {
+    setPlaying(false);
+    let video = document.getElementsByClassName('app__videoFeed')[0];
+    video.srcObject.getTracks()[0].stop();
+  };
+
   return (
     <>
       <Navbar />
       <main>
         <Container maxW={'7xl'}>
           {/* <Center py={60}> */}
-
+          <div>
+            <video
+              height={HEIGHT}
+              width={WIDTH}
+              muted
+              autoPlay
+              className="app__videoFeed"
+            ></video>
+          </div>
+          <div>
+            {playing ? (
+              <button onClick={stopVideo}>Stop</button>
+            ) : (
+              <button onClick={startVideo}>Mulai Video</button>
+            )}
+          </div>
           {/* </Center> */}
           <Center boxShadow={'xl'} py={120} style={{ height: '80vh' }}>
             <input
@@ -158,6 +198,7 @@ const PindaiSampah = () => {
               accept="image/*"
               onChange={fileSelectedHandle}
             />
+
             <Button onClick={fileUploadHandle}>Mulai Pindai</Button>
           </Center>
           <Stack py={20} pacing={3}>
